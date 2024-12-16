@@ -1,6 +1,7 @@
 import './App.css'
 import { Canvas } from '@react-three/fiber'
 import Experience from './Experience'
+import { SoftShadows } from '@react-three/drei'
 
 function App() {
 
@@ -8,10 +9,10 @@ function App() {
   return (
     <>
       <Canvas
-        
-        gl={{
-          antialias: true
-        }}
+        shadows
+        // gl={{
+        //   antialias: true
+        // }}
         orthographic
         camera={{
           fov: 45,
@@ -20,8 +21,9 @@ function App() {
           position: [3, 2, 6],
           zoom: 100
         }}>
-        <ambientLight intensity={0.5} />
-        <directionalLight color="white" position={[0, 0, 5]} />
+        <SoftShadows />
+
+
         <Experience />
 
       </Canvas>

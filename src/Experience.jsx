@@ -1,4 +1,4 @@
-import { TransformControls, OrbitControls, PivotControls, Html } from '@react-three/drei';
+import { TransformControls, OrbitControls, PivotControls, Html, Text, Float, MeshReflectorMaterial } from '@react-three/drei';
 import { useFrame } from '@react-three/fiber';
 import React, { useRef } from 'react'
 
@@ -56,23 +56,53 @@ function Experience() {
 
 
         <group ref={groupRef}>
-            <mesh position-x={-2}>
+            <mesh position-x={-2} castShadow>
                 <sphereGeometry />
                 <meshStandardMaterial color="orange" />
             </mesh>
-            <mesh position-x={2}>
+            <mesh position-x={2} castShadow>
                 <boxGeometry />
-                <meshStandardMaterial color="mediumpurple" />
+                <meshStandardMaterial color="mediumpurple" roughness={0.5} metalness={0.5} />
             </mesh>
 
         </group>
 
-        <mesh position-y={-1} rotation-x={-Math.PI * 0.5} scale={10}>
+        {/* <ambientLight intensity={0.5} castShadow /> */}
+        {/* <directionalLight color="white" position={[0, 0, 5]} /> */}
+        <PivotControls>
+            <directionalLight
+                position={[3.3, 1.0, 4.4]}
+                castShadow
+                intensity={Math.PI * 2}
+            />
+        </PivotControls>
+
+
+        <mesh position-y={-1} position-z={-5} rotation-z={-Math.PI * 0.5} scale={10} receiveShadow>
             <planeGeometry />
-            <meshBasicMaterial color={"greenyellow"} />
+            {/* <meshBasicMaterial color={"greenyellow"} /> */}
+            <MeshReflectorMaterial mirror={0} resolution={512} blur={[1000, 1000]} mixBlur={1} color={"greenyellow"} />
         </mesh>
 
+        <mesh position-y={-1} rotation-x={-Math.PI * 0.5} scale={10} receiveShadow>
+            <planeGeometry />
+            {/* <meshBasicMaterial color={"greenyellow"} /> */}
+            <MeshReflectorMaterial mirror={0} resolution={512} blur={[1000, 1000]} mixBlur={1} />
+        </mesh>
 
+        <Float speed={5} floatIntensity={2}>
+            <Text
+                //font="https://fonts.gstatic.com/s/roboto/v30/KFOmCnqEu92Fr1Mu4mxP.ttf" // URL to the font file
+                font='/black-han-sans-v23-latin/black-han-sans-v23-latin-regular.woff'
+                fontSize={2}
+                color="salmon"
+                position={[0, 2, 0]}
+                maxWidth={3}
+                anchorX="center"
+                anchorY="middle"
+            >I LOVE R3F</Text>
+
+        </Float>
         {/*Se puede agregar a cualquier elemento que venga de Object3D */}
         <Html>
             Test
